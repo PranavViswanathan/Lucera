@@ -1,8 +1,8 @@
 practice_videos/
-src/utility_classes/metadata_dump/
-src/utility_classes/motion_analysis/
-src/utility_classes/decision_engine/
-src/utility_classes/complexity_analysis/
-src/utility_classes/scene_detection/
-src/utility_classes/blur_detection/
-src/utility_classes/noise_estimation/
+src/utility_classes/analysis_results/metadata_dump/
+src/utility_classes/analysis_results/motion_analysis/
+src/utility_classes/analysis_results/decision_engine/
+src/utility_classes/analysis_results/complexity_analysis/
+src/utility_classes/analysis_results/scene_detection/
+src/utility_classes/analysis_results/blur_detection/
+src/utility_classes/analysis_results/noise_estimation/

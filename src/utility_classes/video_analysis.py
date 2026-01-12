@@ -14,6 +14,11 @@ class Analytics_Generator:
         path = Path(video_path)
         self.video_name = path.stem
         self.video_format = path.suffix
+        
+        script_dir = Path(__file__).parent
+        self.analysis_root = script_dir / "analysis_results"
+        self.analysis_root.mkdir(exist_ok=True)
+        
         print("video name:", self.video_name)
     
     def gather_metadata(self):
@@ -22,8 +27,7 @@ class Analytics_Generator:
         hash_object = hashlib.sha256(time_bits)
         current_time_hash = hash_object.hexdigest()
 
-        script_dir = Path(__file__).parent
-        dump_path = script_dir / "metadata_dump"
+        dump_path = self.analysis_root / "metadata_dump"
         metadata_name = f"{self.video_name}_{current_time_hash}.json"
         full_metadata_path = dump_path / metadata_name
 
@@ -46,8 +50,7 @@ class Analytics_Generator:
         return str(full_metadata_path)
 
     def scene_analysis_filter(self, threshold=0.3):
-        script_dir = Path(__file__).parent
-        scenes_dir = script_dir / "scene_detection"
+        scenes_dir = self.analysis_root / "scene_detection"
         scenes_dir.mkdir(exist_ok=True)
         
         scenes_file = scenes_dir / f"{self.video_name}_scenes.txt"
@@ -87,8 +90,7 @@ class Analytics_Generator:
         return str(scenes_file)
 
     def motion_analysis(self):
-        script_dir = Path(__file__).parent
-        motion_dir = script_dir / "motion_analysis"
+        motion_dir = self.analysis_root / "motion_analysis"
         motion_dir.mkdir(exist_ok=True)
         
         motion_file = motion_dir / f"{self.video_name}_motion.txt"
@@ -148,7 +150,7 @@ class Analytics_Generator:
             f.write(f"Motion classification: {self._classify_motion(avg_motion)}\n\n")
             
             f.write("Frame-by-frame motion:\n")
-            for score in motion_scores[::10]:  # Sample every 10th frame
+            for score in motion_scores[::10]:  
                 f.write(f"Frame {score['frame']} ({score['timestamp']:.2f}s): "
                        f"avg={score['avg_motion']:.2f}, max={score['max_motion']:.2f}\n")
         
@@ -156,8 +158,8 @@ class Analytics_Generator:
         return str(motion_file), motion_scores
 
     def complexity_analysis(self):
-        script_dir = Path(__file__).parent
-        complexity_dir = script_dir / "complexity_analysis"
+        # ✅ CHANGE 5: Use self.analysis_root
+        complexity_dir = self.analysis_root / "complexity_analysis"
         complexity_dir.mkdir(exist_ok=True)
         
         complexity_file = complexity_dir / f"{self.video_name}_complexity.txt"
@@ -212,7 +214,7 @@ class Analytics_Generator:
             f.write(f"Complexity classification: {self._classify_complexity(avg_density)}\n\n")
             
             f.write("Frame-by-frame complexity:\n")
-            for score in complexity_scores[::10]:  # Sample every 10th frame
+            for score in complexity_scores[::10]:
                 f.write(f"Frame {score['frame']} ({score['timestamp']:.2f}s): "
                        f"density={score['edge_density']:.4f}, edges={score['edge_count']}\n")
         
@@ -220,8 +222,7 @@ class Analytics_Generator:
         return str(complexity_file), complexity_scores
 
     def noise_estimation(self):
-        script_dir = Path(__file__).parent
-        noise_dir = script_dir / "noise_estimation"
+        noise_dir = self.analysis_root / "noise_estimation"
         noise_dir.mkdir(exist_ok=True)
         
         noise_file = noise_dir / f"{self.video_name}_noise.txt"
@@ -267,8 +268,7 @@ class Analytics_Generator:
         return str(noise_file), noise_scores
 
     def blur_detection(self):
-        script_dir = Path(__file__).parent
-        blur_dir = script_dir / "blur_detection"
+        blur_dir = self.analysis_root / "blur_detection"
         blur_dir.mkdir(exist_ok=True)
         
         blur_file = blur_dir / f"{self.video_name}_blur.txt"
@@ -327,9 +327,7 @@ class Analytics_Generator:
         return str(blur_file), blur_scores
 
     def decision_engine(self, motion_scores, complexity_scores, noise_scores, blur_scores):
-        """Decision engine to classify video quality"""
-        script_dir = Path(__file__).parent
-        decision_dir = script_dir / "decision_engine"
+        decision_dir = self.analysis_root / "decision_engine"
         decision_dir.mkdir(exist_ok=True)
         
         decision_file = decision_dir / f"{self.video_name}_decision.json"
@@ -371,10 +369,7 @@ class Analytics_Generator:
         }
         with open(decision_file, 'w') as f:
             json.dump(decision, f, indent=4)
-        
-        print(f"\n{'='*60}")
         print(f"DECISION ENGINE RESULTS")
-        print(f"{'='*60}")
         print(f"Overall Quality Score: {quality_score}/100")
         print(f"Motion: {motion_class}")
         print(f"Complexity: {complexity_class}")
@@ -417,10 +412,10 @@ class Analytics_Generator:
             return "Sharp/Clear"
     
     def _calculate_quality_score(self, motion, complexity, noise, blur):
-        motion_score = min(motion / 10.0, 1.0) * 100  # Higher motion = better
-        complexity_score = min(complexity / 0.2, 1.0) * 100  # Higher complexity = better
-        noise_score = min(noise / 1000.0, 1.0) * 100  # Higher variance = less noise = better
-        blur_score = min(blur / 1000.0, 1.0) * 100  # Higher variance = less blur = better
+        motion_score = min(motion / 10.0, 1.0) * 100
+        complexity_score = min(complexity / 0.2, 1.0) * 100
+        noise_score = min(noise / 1000.0, 1.0) * 100
+        blur_score = min(blur / 1000.0, 1.0) * 100
         
         quality = (motion_score * 0.2 + complexity_score * 0.2 + 
                   noise_score * 0.3 + blur_score * 0.3)
@@ -448,35 +443,29 @@ class Analytics_Generator:
         return recommendations
 
     def run_full_analysis(self):
-        """Run complete analysis pipeline"""
-        print("Starting full video analysis pipeline...")
+        print("Starting full video analysis pipeline")
         print("="*60)
         
-        
-        print("\n[1/6] Extracting metadata...")
+        print("\n[1/6] Extracting metadata")
         metadata_path = self.gather_metadata()
         
-        print("\n[2/6] Detecting scenes...")
+        print("\n[2/6] Detecting scenes")
         scenes_path = self.scene_analysis_filter()
         
-        print("\n[3/6] Analyzing motion...")
+        print("\n[3/6] Analyzing motion")
         motion_path, motion_scores = self.motion_analysis()
         
-        print("\n[4/6] Analyzing complexity...")
+        print("\n[4/6] Analyzing complexity")
         complexity_path, complexity_scores = self.complexity_analysis()
         
-        print("\n[5/6] Estimating noise...")
+        print("\n[5/6] Estimating noise")
         noise_path, noise_scores = self.noise_estimation()
       
-        print("\n[6/6] Detecting blur...")
+        print("\n[6/6] Detecting blur")
         blur_path, blur_scores = self.blur_detection()
         
-       
-        print("\n[FINAL] Running decision engine...")
+        print("\n[FINAL] Running decision engine")
         decision = self.decision_engine(motion_scores, complexity_scores, noise_scores, blur_scores)
-        
-        print("\n" + "="*60)
         print("ANALYSIS COMPLETE!")
-        print("="*60)
-        
+
         return decision
