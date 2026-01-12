@@ -1,0 +1,8 @@
+practice_videos/
+src/utility_classes/metadata_dump/
+src/utility_classes/motion_analysis/
+src/utility_classes/decision_engine/
+src/utility_classes/complexity_analysis/
+src/utility_classes/scene_detection/
+src/utility_classes/blur_detection/
+src/utility_classes/noise_estimation/
