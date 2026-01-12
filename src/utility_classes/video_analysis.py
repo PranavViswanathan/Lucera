@@ -158,7 +158,6 @@ class Analytics_Generator:
         return str(motion_file), motion_scores
 
     def complexity_analysis(self):
-        # ✅ CHANGE 5: Use self.analysis_root
         complexity_dir = self.analysis_root / "complexity_analysis"
         complexity_dir.mkdir(exist_ok=True)
         
