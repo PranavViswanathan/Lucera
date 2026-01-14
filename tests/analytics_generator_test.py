@@ -12,3 +12,6 @@ from src.utility_classes.video_analysis import Analytics_Generator
 
 obj2 = Analytics_Generator("/Users/pranavviswanathan/Programming/Lucera/practice_videos/practice_2.MP4")
 results = obj2.run_full_analysis()
+
+# obj3 = Analytics_Generator("/Users/pranavviswanathan/Programming/Lucera/practice_videos/practice_3.mp4")
+# results = obj3.run_full_analysis()
