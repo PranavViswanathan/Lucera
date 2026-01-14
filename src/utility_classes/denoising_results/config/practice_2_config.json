@@ -1,0 +1,6 @@
+{
+    "temporal_radius": 3,
+    "strength": 7,
+    "adaptive_filtering": true,
+    "preserve_edges": true
+}

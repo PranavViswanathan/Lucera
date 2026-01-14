@@ -18,6 +18,7 @@ src/utility_classes/final_quality_metrics/
 src/utility_classes/packaging_results/
 src/utility_classes/hls_results/
 
+outputs/
 
 pipeline.log
 __pycache__/

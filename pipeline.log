@@ -99,3 +99,25 @@ TypeError: argument should be a str or an os.PathLike object where __fspath__ re
 2026-01-14 13:49:08,957 - VideoPipeline - INFO - Exported final report: practice_1_final_report_558220c0.json
 2026-01-14 13:49:08,957 - VideoPipeline - INFO - All results available in: practice_videos/lucera_results_practice_1
 2026-01-14 13:49:08,957 - VideoPipeline - INFO - Pipeline completed successfully!
+2026-01-14 18:31:21,264 - VideoPipeline - INFO - Starting pipeline for: practice_2
+2026-01-14 18:31:21,264 - VideoPipeline - INFO - STAGE 1: Video Analysis
+2026-01-14 18:31:44,448 - VideoPipeline - INFO - Analysis complete
+2026-01-14 18:31:44,448 - VideoPipeline - INFO - STAGE 2: Caption Generation
+2026-01-14 18:31:45,640 - VideoPipeline - INFO - Captioning complete
+2026-01-14 18:31:45,648 - VideoPipeline - INFO - STAGE 3: Video Enhancement
+2026-01-14 18:32:16,400 - VideoPipeline - INFO - Enhancement complete. Enhanced video: /Users/pranavviswanathan/Programming/Lucera/src/utility_classes/interpolation_results/final_videos/practice_2_interpolated_c1b680af.mp4
+2026-01-14 18:32:16,400 - VideoPipeline - INFO - STAGE 3.5: Combining Video and Subtitles
+2026-01-14 18:32:16,400 - VideoPipeline - INFO - embedding subtitles into: outputs/combined_practice_2.mp4
+2026-01-14 18:32:16,449 - VideoPipeline - INFO - Combined video created at: outputs/combined_practice_2.mp4
+2026-01-14 18:32:16,449 - VideoPipeline - INFO - STAGE 4: HLS Packaging
+2026-01-14 18:32:26,743 - VideoPipeline - INFO - Packaging complete
+2026-01-14 18:32:26,744 - VideoPipeline - INFO - STAGE 5: Quality Verification (VMAF)
+2026-01-14 18:32:29,477 - VideoPipeline - INFO - Quality check complete
+2026-01-14 18:32:29,477 - VideoPipeline - INFO - STAGE 6: Final Reporting
+2026-01-14 18:32:29,689 - VideoPipeline - INFO - Finalizing: Exporting artifacts to video directory
+2026-01-14 18:32:30,007 - VideoPipeline - INFO - Exported: analysis_results
+2026-01-14 18:32:30,015 - VideoPipeline - INFO - Exported: caption_results
+2026-01-14 18:32:30,036 - VideoPipeline - INFO - Exported: final_quality_metrics
+2026-01-14 18:32:30,036 - VideoPipeline - INFO - Exported final report: practice_2_final_report_aceb5741.json
+2026-01-14 18:32:30,036 - VideoPipeline - INFO - All results available in: practice_videos/lucera_results_practice_2
+2026-01-14 18:32:30,036 - VideoPipeline - INFO - Pipeline completed successfully!
