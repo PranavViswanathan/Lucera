@@ -1,6 +1,6 @@
 # Lucera: Advanced Video Processing Pipeline
 
-Lucera is a comprehensive, modular video processing pipeline designed to analyze, encourage, and package video content for optimal delivery. It integrates state-of-the-art computer vision analysis, AI-powered captioning, video enhancement techniques, and adaptive bitrate packaging into a single, cohesive workflow.
+Lucera is a next-generation video processing powerhouse that transforms raw footage into broadcast-ready content. Combining cutting-edge computer vision, AI-driven captioning, neural upscaling, and intelligent adaptive streaming—all orchestrated through a single, unified pipeline that turns complexity into clarity.
 
 ## Pipeline Architecture
 
