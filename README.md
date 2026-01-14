@@ -127,8 +127,15 @@ If you prefer running Docker commands yourself:
 To process a video locally (without Docker), run the `src/main.py` script:
 
 ```bash
-python src/main.py /path/to/your/video.mp4
+python src/main.py /path/to/your/video.mp4 --combine /path/to/output_dir
 ```
+
+### Combine Feature
+You can use the `--combine` flag to merge the enhanced video with the generated subtitles into a single file.
+```bash
+python src/main.py video.mp4 --combine ./final_results
+```
+This will create a `combined_<video_name>.mp4` file in the specified directory, with soft subtitles embedded.
 
 ### Outputs
 

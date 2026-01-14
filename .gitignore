@@ -20,3 +20,6 @@ src/utility_classes/hls_results/
 
 
 pipeline.log
+__pycache__/
+env/
+.pytest_cache/

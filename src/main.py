@@ -15,9 +15,22 @@ try:
     from utility_classes.packaging_generator import HLS_Packaging_Generator
     from utility_classes.VMAF import VMAF_Calculator, Quality_Metrics_Generator
 except ImportError as e:
-    print(f"Error importing utility classes: {e}")
-    print("Please ensure you are running this from the project root or src directory.")
-    sys.exit(1)
+    # Allow imports to fail during testing (mocks will handle it) or just re-raise
+    if "pytest" not in sys.modules:
+        print(f"Error importing utility classes: {e}")
+        print("Please ensure you are running this from the project root or src directory.")
+        sys.exit(1)
+    else:
+        # Re-raise so pytest knows, or just warn if we want to mock it out later
+        # Better to just let it pass if possible, or raise a cleaner error?
+        # Actually if we re-raise it still crashes collection.
+        # But wait, we want to mock these imports usually if dependencies are missing.
+        # But here valid imports are failing?
+        # Let's just print and pass for now, letting the code crash later if used?
+        # No, that's bad.
+        # Let's try to fix the import first.
+        # But sticking to instructions: prevent sys.exit.
+        raise ImportError(f"Detailed import error: {e}")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,9 +43,10 @@ logging.basicConfig(
 logger = logging.getLogger('VideoPipeline')
 
 class VideoPipeline:
-    def __init__(self, video_path: str):
+    def __init__(self, video_path: str, combine_output_dir: Optional[str] = None):
         self.video_path = video_path
         self.path = Path(video_path)
+        self.combine_output_dir = combine_output_dir
         
         if not self.path.exists():
             raise FileNotFoundError(f"Video file not found: {video_path}")
@@ -54,6 +68,9 @@ class VideoPipeline:
             
             enhanced_video_path = self._run_enhancement()
             
+            if self.combine_output_dir:
+                self._run_combine(enhanced_video_path, self.combine_output_dir)
+            
             self._run_packaging(enhanced_video_path)
             
             self._run_quality_check(enhanced_video_path)
@@ -68,6 +85,47 @@ class VideoPipeline:
         except Exception as e:
             logger.error(f"Pipeline failed: {str(e)}", exc_info=True)
             raise
+
+    def _run_combine(self, video_path: str, output_dir: str):
+        logger.info("STAGE 3.5: Combining Video and Subtitles")
+        
+        # Get subtitle path from previous stage results
+        caption_results = self.results['stages'].get('captioning', {})
+        srt_path = caption_results.get('srt_path')
+        
+        if not srt_path or not os.path.exists(srt_path):
+            logger.warning("No SRT file found. Skipping combination.")
+            return
+
+        import subprocess
+        
+        out_path = Path(output_dir)
+        out_path.mkdir(parents=True, exist_ok=True)
+        
+        combined_filename = f"combined_{self.video_name}.mp4"
+        combined_file_path = out_path / combined_filename
+        
+        logger.info(f"embedding subtitles into: {combined_file_path}")
+        
+        # FFmpeg command to embed subtitles (soft subs)
+        # using mov_text for MP4 container compatibility
+        command = [
+            'ffmpeg',
+            '-i', video_path,
+            '-i', srt_path,
+            '-c', 'copy',
+            '-c:s', 'mov_text',
+            '-y',
+            str(combined_file_path)
+        ]
+        
+        try:
+            subprocess.run(command, check=True, capture_output=True)
+            logger.info(f"Combined video created at: {combined_file_path}")
+            self.results['stages']['combine'] = str(combined_file_path)
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to combine video and subtitles: {e.stderr.decode()}")
+            # Don't fail the whole pipeline, just log error
 
     def _export_artifacts(self):
         """
@@ -194,15 +252,19 @@ class VideoPipeline:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python src/main.py <video_file_path>")
-        sys.exit(1)
-        
-    video_file = sys.argv[1]
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Lucera Video Processing Pipeline")
+    parser.add_argument("video_file", help="Path to the input video file")
+    parser.add_argument("--combine", help="Directory to save the enhanced video combined with captions", default=None)
+    
+    args = parser.parse_args()
+    
+    video_file = args.video_file
     
     if not os.path.exists(video_file):
         print(f"Error: File {video_file} not found.")
         sys.exit(1)
         
-    pipeline = VideoPipeline(video_file)
+    pipeline = VideoPipeline(video_file, combine_output_dir=args.combine)
     pipeline.run()

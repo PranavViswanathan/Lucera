@@ -45,12 +45,18 @@ case "$1" in
             docker build -t $IMAGE_NAME .
         fi
 
+        EXTRA_ARGS="${@:3}"
+
         echo -e "${GREEN}Processing: $FILE_NAME${NC}"
         echo "Mounting: $DIR_NAME -> /data"
+        if [ ! -z "$EXTRA_ARGS" ]; then
+            echo "Passing args: $EXTRA_ARGS"
+        fi
+
         docker run --rm --name $CONTAINER_NAME \
             -v "$DIR_NAME":/data \
             $IMAGE_NAME \
-            /data/"$FILE_NAME"
+            /data/"$FILE_NAME" $EXTRA_ARGS
         ;;
 
     stop)
