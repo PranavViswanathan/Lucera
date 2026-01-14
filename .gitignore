@@ -6,3 +6,4 @@ src/utility_classes/analysis_results/complexity_analysis/
 src/utility_classes/analysis_results/scene_detection/
 src/utility_classes/analysis_results/blur_detection/
 src/utility_classes/analysis_results/noise_estimation/
+src/utility_classes/analysis_results/
