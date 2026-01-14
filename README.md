@@ -63,7 +63,11 @@ Lucera provides a suite of advanced features categorized by their stage in the p
 
 *   **Python 3.8+**
 *   **FFmpeg**: Must be installed and accessible in your system path.
-*   **CUDA (Optional)**: Recommended for faster AI processing (Upscaling/Whisper).
+*   **External Binaries** (Required for Enhancement):
+    *   `rife-ncnn-vulkan`: For frame interpolation.
+    *   `realesrgan-ncnn-vulkan`: For upscaling.
+    *   *Note: If these are not found in your PATH, enhancement steps will be skipped.*
+*   **CUDA (Optional)**: Recommended for faster AI processing.
 
 ### Installation
 

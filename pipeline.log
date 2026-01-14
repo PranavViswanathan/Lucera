@@ -1,0 +1,101 @@
+2026-01-14 13:36:21,812 - VideoPipeline - INFO - Starting pipeline for: practice_1
+2026-01-14 13:36:21,812 - VideoPipeline - INFO - STAGE 1: Video Analysis
+2026-01-14 13:36:54,999 - VideoPipeline - INFO - Analysis complete
+2026-01-14 13:36:54,999 - VideoPipeline - INFO - STAGE 2: Caption Generation
+2026-01-14 13:36:57,263 - VideoPipeline - INFO - Captioning complete
+2026-01-14 13:36:57,271 - VideoPipeline - INFO - STAGE 3: Video Enhancement
+2026-01-14 13:36:57,392 - VideoPipeline - ERROR - Pipeline failed: [Errno 2] No such file or directory: 'rife-ncnn-vulkan'
+Traceback (most recent call last):
+  File "/Users/pranavviswanathan/Programming/Lucera/src/main.py", line 55, in run
+    enhanced_video_path = self._run_enhancement()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/main.py", line 126, in _run_enhancement
+    enhancement_result = enhancer.run_full_enhancement()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 501, in run_full_enhancement
+    interp_result = self.interpolator.run_full_analysis()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 281, in run_full_analysis
+    intermediate_dir = self.generate_intermediate_frames(frames_dir, frame_count)
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 218, in generate_intermediate_frames
+    subprocess.run(command, check=True, capture_output=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py", line 554, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py", line 1036, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py", line 1966, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rife-ncnn-vulkan'
+2026-01-14 13:41:44,401 - VideoPipeline - INFO - Starting pipeline for: practice_1
+2026-01-14 13:41:44,401 - VideoPipeline - INFO - STAGE 1: Video Analysis
+2026-01-14 13:42:17,199 - VideoPipeline - INFO - Analysis complete
+2026-01-14 13:42:17,199 - VideoPipeline - INFO - STAGE 2: Caption Generation
+2026-01-14 13:42:24,834 - VideoPipeline - INFO - Captioning complete
+2026-01-14 13:42:24,840 - VideoPipeline - INFO - STAGE 3: Video Enhancement
+2026-01-14 13:42:24,929 - VideoPipeline - ERROR - Pipeline failed: name 'shutil' is not defined
+Traceback (most recent call last):
+  File "/Users/pranavviswanathan/Programming/Lucera/src/main.py", line 55, in run
+    enhanced_video_path = self._run_enhancement()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/main.py", line 126, in _run_enhancement
+    enhancement_result = enhancer.run_full_enhancement()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 514, in run_full_enhancement
+    interp_result = self.interpolator.run_full_analysis()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 294, in run_full_analysis
+    intermediate_dir = self.generate_intermediate_frames(frames_dir, frame_count)
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 215, in generate_intermediate_frames
+    if not shutil.which(rife_cmd):
+           ^^^^^^
+NameError: name 'shutil' is not defined. Did you forget to import 'shutil'?
+2026-01-14 13:43:59,746 - VideoPipeline - INFO - Starting pipeline for: practice_1
+2026-01-14 13:43:59,746 - VideoPipeline - INFO - STAGE 1: Video Analysis
+2026-01-14 13:44:33,110 - VideoPipeline - INFO - Analysis complete
+2026-01-14 13:44:33,111 - VideoPipeline - INFO - STAGE 2: Caption Generation
+2026-01-14 13:44:38,976 - VideoPipeline - INFO - Captioning complete
+2026-01-14 13:44:38,984 - VideoPipeline - INFO - STAGE 3: Video Enhancement
+2026-01-14 13:45:22,789 - VideoPipeline - ERROR - Pipeline failed: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'
+Traceback (most recent call last):
+  File "/Users/pranavviswanathan/Programming/Lucera/src/main.py", line 55, in run
+    enhanced_video_path = self._run_enhancement()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/main.py", line 126, in _run_enhancement
+    enhancement_result = enhancer.run_full_enhancement()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 522, in run_full_enhancement
+    upscale_result = self.upscaler.run_full_analysis()
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 147, in run_full_analysis
+    output_video = self.encode_video(final_frames)
+  File "/Users/pranavviswanathan/Programming/Lucera/src/utility_classes/video_enchancers.py", line 108, in encode_video
+    frame_pattern = Path(frames_dir) / "frame_%06d.png"
+                    ~~~~^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/pathlib/_local.py", line 503, in __init__
+    super().__init__(*args)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/pathlib/_local.py", line 132, in __init__
+    raise TypeError(
+    ...<2 lines>...
+        f"not {type(path).__name__!r}")
+TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'
+2026-01-14 13:47:22,882 - VideoPipeline - INFO - Starting pipeline for: practice_1
+2026-01-14 13:47:22,883 - VideoPipeline - INFO - STAGE 1: Video Analysis
+2026-01-14 13:47:56,847 - VideoPipeline - INFO - Analysis complete
+2026-01-14 13:47:56,847 - VideoPipeline - INFO - STAGE 2: Caption Generation
+2026-01-14 13:48:02,509 - VideoPipeline - INFO - Captioning complete
+2026-01-14 13:48:02,515 - VideoPipeline - INFO - STAGE 3: Video Enhancement
+2026-01-14 13:48:46,505 - VideoPipeline - INFO - Enhancement complete. Enhanced video: /Users/pranavviswanathan/Programming/Lucera/src/utility_classes/interpolation_results/final_videos/practice_1_interpolated_ad162449.mp4
+2026-01-14 13:48:46,505 - VideoPipeline - INFO - STAGE 4: HLS Packaging
+2026-01-14 13:49:04,163 - VideoPipeline - INFO - Packaging complete
+2026-01-14 13:49:04,163 - VideoPipeline - INFO - STAGE 5: Quality Verification (VMAF)
+2026-01-14 13:49:08,234 - VideoPipeline - INFO - Quality check complete
+2026-01-14 13:49:08,234 - VideoPipeline - INFO - STAGE 6: Final Reporting
+2026-01-14 13:49:08,477 - VideoPipeline - INFO - Finalizing: Exporting artifacts to video directory
+2026-01-14 13:49:08,948 - VideoPipeline - INFO - Exported: analysis_results
+2026-01-14 13:49:08,950 - VideoPipeline - INFO - Exported: caption_results
+2026-01-14 13:49:08,956 - VideoPipeline - INFO - Exported: final_quality_metrics
+2026-01-14 13:49:08,957 - VideoPipeline - INFO - Exported final report: practice_1_final_report_558220c0.json
+2026-01-14 13:49:08,957 - VideoPipeline - INFO - All results available in: practice_videos/lucera_results_practice_1
+2026-01-14 13:49:08,957 - VideoPipeline - INFO - Pipeline completed successfully!

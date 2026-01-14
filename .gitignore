@@ -7,3 +7,15 @@ src/utility_classes/analysis_results/scene_detection/
 src/utility_classes/analysis_results/blur_detection/
 src/utility_classes/analysis_results/noise_estimation/
 src/utility_classes/analysis_results/
+src/utility_classes/interpolation_results/
+src/utility_classes/caption_results/
+src/utility_classes/packaging_results/
+src/utility_classes/complete_pipeline_results/
+src/utility_classes/interpolation_results/
+src/utility_classes/upscaling_results/
+src/utility_classes/vmaf_results/
+src/utility_classes/final_quality_metrics/
+src/utility_classes/packaging_results/
+src/utility_classes/hls_results/
+
+
