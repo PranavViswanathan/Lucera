@@ -49,7 +49,7 @@ class Analytics_Generator:
         print(f"Metadata saved to: {full_metadata_path}")
         return str(full_metadata_path)
 
-    def scene_analysis_filter(self, threshold=0.3):
+    def scene_analysis_filter(self, threshold=0.1):
         scenes_dir = self.analysis_root / "scene_detection"
         scenes_dir.mkdir(exist_ok=True)
         
