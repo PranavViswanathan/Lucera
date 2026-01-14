@@ -16,7 +16,7 @@ graph TD
     D --> D1[Noise Detection]
     D1 --> D2[Denoising]
     D2 --> D3[Frame Interpolation]
-    D3 --> D4[Upscaling (Super Resolution)]
+    D3 --> D4[Upscaling Super Resolution]
     end
     
     D4 --> E{Quality Verification}
