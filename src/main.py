@@ -60,12 +60,51 @@ class VideoPipeline:
             
             self._generate_report()
             
+            self._export_artifacts()
+            
             logger.info("Pipeline completed successfully!")
             return self.results
             
         except Exception as e:
             logger.error(f"Pipeline failed: {str(e)}", exc_info=True)
             raise
+
+    def _export_artifacts(self):
+        """
+        Copy generated artifacts from the source directory (inside container/env)
+        to the input video's directory so they are accessible to the user.
+        """
+        import shutil
+        
+        logger.info("Finalizing: Exporting artifacts to video directory")
+        base_src = Path(__file__).parent / "utility_classes"
+        
+        output_dir = self.path.parent / f"lucera_results_{self.video_name}"
+        output_dir.mkdir(exist_ok=True)
+        
+        artifact_folders = [
+            "analysis_results",
+            "caption_results",
+            "complete_pipeline_results", 
+            "final_quality_metrics",    
+        ]
+        
+        for folder in artifact_folders:
+            src = base_src / folder
+            dst = output_dir / folder
+            
+            if src.exists():
+                shutil.copytree(src, dst, dirs_exist_ok=True)
+                logger.info(f"Exported: {folder}")
+                
+        report_path = self.results.get('final_report_path')
+        if report_path and os.path.exists(report_path):
+             p_report = Path(report_path)
+             if output_dir not in p_report.parents:
+                 shutil.copy2(p_report, output_dir)
+                 logger.info(f"Exported final report: {p_report.name}")
+                 
+        logger.info(f"All results available in: {output_dir}")
 
     def _run_analysis(self):
         logger.info("STAGE 1: Video Analysis")
