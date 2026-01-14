@@ -27,8 +27,7 @@ graph TD
     E -->|VMAF Scores| G
     F --> G
     
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style G fill:#bbf,stroke:#333,stroke-width:2px
+    
 ```
 
 ## Features
