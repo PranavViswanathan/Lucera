@@ -15,21 +15,11 @@ try:
     from utility_classes.packaging_generator import HLS_Packaging_Generator
     from utility_classes.VMAF import VMAF_Calculator, Quality_Metrics_Generator
 except ImportError as e:
-    # Allow imports to fail during testing (mocks will handle it) or just re-raise
     if "pytest" not in sys.modules:
         print(f"Error importing utility classes: {e}")
         print("Please ensure you are running this from the project root or src directory.")
         sys.exit(1)
     else:
-        # Re-raise so pytest knows, or just warn if we want to mock it out later
-        # Better to just let it pass if possible, or raise a cleaner error?
-        # Actually if we re-raise it still crashes collection.
-        # But wait, we want to mock these imports usually if dependencies are missing.
-        # But here valid imports are failing?
-        # Let's just print and pass for now, letting the code crash later if used?
-        # No, that's bad.
-        # Let's try to fix the import first.
-        # But sticking to instructions: prevent sys.exit.
         raise ImportError(f"Detailed import error: {e}")
 
 logging.basicConfig(
