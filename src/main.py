@@ -97,8 +97,6 @@ class VideoPipeline:
         
         logger.info(f"embedding subtitles into: {combined_file_path}")
         
-        # FFmpeg command to embed subtitles (soft subs)
-        # using mov_text for MP4 container compatibility
         command = [
             'ffmpeg',
             '-i', video_path,
