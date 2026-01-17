@@ -79,7 +79,6 @@ class VideoPipeline:
     def _run_combine(self, video_path: str, output_dir: str):
         logger.info("STAGE 3.5: Combining Video and Subtitles")
         
-        # Get subtitle path from previous stage results
         caption_results = self.results['stages'].get('captioning', {})
         srt_path = caption_results.get('srt_path')
         
@@ -113,13 +112,8 @@ class VideoPipeline:
             self.results['stages']['combine'] = str(combined_file_path)
         except subprocess.CalledProcessError as e:
             logger.error(f"Failed to combine video and subtitles: {e.stderr.decode()}")
-            # Don't fail the whole pipeline, just log error
 
     def _export_artifacts(self):
-        """
-        Copy generated artifacts from the source directory (inside container/env)
-        to the input video's directory so they are accessible to the user.
-        """
         import shutil
         
         logger.info("Finalizing: Exporting artifacts to video directory")

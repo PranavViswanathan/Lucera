@@ -152,11 +152,6 @@ class Upscaling_Generator:
             }
         
         print("\n[4/5] Applying 4x upscale")
-        # In the original flow, upscale_4x seemed to be taking the result of batch_process_gpu? 
-        # Wait, looking at current code: final_frames = self.upscale_4x(upscaled_frames)
-        # If batch_process_gpu does the work, what does upscale_4x do?
-        # Based on the error log, the user code called upscale_result = self.upscaler.run_full_analysis()
-        # Let's assume standard flow.
         
         final_frames = self.upscale_4x(upscaled_frames)
         
